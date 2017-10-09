@@ -10,7 +10,7 @@ public class GroceryList {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Long Id;
+    public Long id;
     @OneToMany(mappedBy = "list")
     List<GroceryListItem> items;
 
@@ -35,7 +35,7 @@ public class GroceryList {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     @JsonGetter("total-cost")

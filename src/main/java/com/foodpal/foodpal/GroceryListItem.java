@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class GroceryListItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Long Id;
+    private Long id;
 
     private String name;
     private String description;
@@ -18,7 +18,7 @@ public class GroceryListItem {
     private String category;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public String getName() {

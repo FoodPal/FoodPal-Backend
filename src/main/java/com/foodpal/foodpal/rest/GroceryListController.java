@@ -4,6 +4,7 @@ import com.foodpal.foodpal.AccountRepository;
 import com.foodpal.foodpal.GroceryList;
 import com.foodpal.foodpal.GroceryListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,19 @@ public class GroceryListController {
 
                     return ResponseEntity.created(location).build();
                 }).orElse(ResponseEntity.noContent().build());
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    ResponseEntity<?> destroy(Principal principal, @RequestBody GroceryList input){
+        this.validateUser(principal);
+
+        return this.accountRepository
+                .findByUsername(principal.getName())
+                .map(account -> groceryListRepository.findByAccountAndId(account, input.getId())
+                        .map(groceryList -> {
+                             groceryListRepository.delete(groceryList.getId());
+                            return new ResponseEntity<>(HttpStatus.OK);
+                        }).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST))).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
 

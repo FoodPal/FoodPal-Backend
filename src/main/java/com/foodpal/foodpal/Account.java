@@ -10,7 +10,7 @@ public class Account {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Long Id;
+    private Long id;
 
     @OneToMany(mappedBy = "account")
     private List<GroceryList> lists;
