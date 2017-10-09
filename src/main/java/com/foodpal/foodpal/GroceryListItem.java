@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class GroceryListItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @javax.persistence.Id
+    @Id
     private Long Id;
 
     private String name;
@@ -16,4 +16,24 @@ public class GroceryListItem {
     private GroceryList list;
 
     private String category;
+
+    public Long getId() {
+        return Id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public String getCategory() {
+        return category;
+    }
 }

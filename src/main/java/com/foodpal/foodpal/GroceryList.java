@@ -1,5 +1,7 @@
 package com.foodpal.foodpal;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -34,5 +36,15 @@ public class GroceryList {
 
     public Long getId() {
         return Id;
+    }
+
+    @JsonGetter("total-cost")
+    public Double cost(){
+        Double cost = 0.0;
+        for(GroceryListItem item: items){
+           cost += item.getCost();
+        }
+
+        return cost;
     }
 }
