@@ -7,6 +7,7 @@ import java.util.List;
 public class GroceryList {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     private Long Id;
     @OneToMany(mappedBy = "list")
     List<GroceryListItem> items;
@@ -16,5 +17,22 @@ public class GroceryList {
     @ManyToOne
     private Account account;
 
+    public GroceryList(){}
 
+    public GroceryList(String name, Account account){
+        this.name = name;
+        this.account = account;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return Id;
+    }
 }

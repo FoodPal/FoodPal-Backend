@@ -2,18 +2,16 @@ package com.foodpal.foodpal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Account {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     private Long Id;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "account")
     private List<GroceryList> lists;
 
     public String username;
@@ -24,4 +22,11 @@ public class Account {
     private String email;
 
     private int zipcode;
+
+    public Account() {}
+
+    public Account(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
 }
