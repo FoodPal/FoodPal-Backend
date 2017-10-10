@@ -3,6 +3,8 @@ package com.foodpal.foodpal.rest;
 import com.foodpal.foodpal.AccountRepository;
 import com.foodpal.foodpal.GroceryList;
 import com.foodpal.foodpal.GroceryListRepository;
+import com.foodpal.foodpal.exceptions.GroceryListNotFoundException;
+import com.foodpal.foodpal.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,13 +68,14 @@ public class GroceryListController {
                         .map(groceryList -> {
                              groceryListRepository.delete(groceryList.getId());
                             return new ResponseEntity<>(HttpStatus.OK);
-                        }).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST))).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+                        }).orElseThrow(() -> new GroceryListNotFoundException(input.getId()))).orElseThrow(() -> new UserNotFoundException(principal.getName()));
     }
 
 
     private void validateUser(Principal principal) {
         String userId = principal.getName();
         this.accountRepository
-                .findByUsername(userId);
+                .findByUsername(userId)
+        .orElseThrow(() -> new UserNotFoundException(userId));
     }
 }
