@@ -1,6 +1,7 @@
 package com.foodpal.foodpal;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +12,8 @@ public class GroceryList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     public Long id;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "list")
     List<GroceryListItem> items;
 
@@ -47,5 +50,9 @@ public class GroceryList {
         }
 
         return cost;
+    }
+
+    public List<GroceryListItem> getItems() {
+        return items;
     }
 }
